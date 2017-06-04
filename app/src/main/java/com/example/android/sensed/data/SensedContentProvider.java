@@ -18,8 +18,6 @@ import static com.example.android.sensed.data.SensedContract.SensedEntry.TABLE_N
 
 public class SensedContentProvider extends ContentProvider {
 
-    // test
-
     // Member variable for a TaskDbHelper that's initialized in the onCreate() method
     private SensedDbHelper mTaskDbHelper;
     private SQLiteDatabase db;
