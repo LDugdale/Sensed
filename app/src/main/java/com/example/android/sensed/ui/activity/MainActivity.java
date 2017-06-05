@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.android.sensed.R;
+import com.example.android.sensed.ReminderUtilities;
 import com.example.android.sensed.services.SensedLocation;
 import com.example.android.sensed.ui.adapter.MainPagerAdapter;
 import com.example.android.sensed.ui.view.SensedTabsView;
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         // create intent and bind location service
         Intent i = new Intent(this, SensedLocation.class);
         bindService(i, locationServiceConnection, Context.BIND_AUTO_CREATE);
+
+        ReminderUtilities.scheduleChargingReminder(this);
+
 
     }
 

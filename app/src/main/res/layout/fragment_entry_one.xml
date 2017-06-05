@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/light_grey">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -94,39 +95,91 @@
 
         </FrameLayout>
     </FrameLayout>
+
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center">
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
 
         <ImageView
             android:id="@+id/iv_entry_point"
             android:layout_width="46dp"
             android:layout_height="46dp"
-            android:src="@drawable/small_circle"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginBottom="38dp" />
+            android:layout_gravity="center|top"
+            android:src="@drawable/small_circle" />
 
         <TextView
-            android:textColor="@color/white"
             android:id="@+id/tv_seek_bar_value"
             android:layout_width="46dp"
             android:layout_height="46dp"
+            android:layout_gravity="center|top"
+            android:text="0"
+            android:layout_marginTop="11dp"
             android:textAlignment="center"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginBottom="25dp"
-            android:text="0"/>
+            android:textColor="@color/white" />
 
         <SeekBar
             android:id="@+id/sb_entry_seek_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_gravity="center|bottom"
             android:layout_marginLeft="30dp"
-            android:layout_gravity="center|center_horizontal"/>
+            android:layout_marginRight="30dp" />
 
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginBottom="120dp"
+        android:alpha="0.6">
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:id="@+id/emote_enjoyment"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/enjoyment_bw"/>
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:id="@+id/emote_disgust"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/disgust_bw"/>
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:id="@+id/emote_fear"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/fear_bw"/>
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:id="@+id/emote_anger"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/anger_bw"/>
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:id="@+id/emote_sadness"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/sadness_bw" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/feo_next_image"
