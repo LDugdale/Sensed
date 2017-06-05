@@ -71,7 +71,6 @@ public class SensedContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-        // Get access to underlying database (read-only for query)
 
         // Write URI match code and set a variable to return a Cursor
         int match = sUriMatcher.match(uri);
@@ -98,7 +97,7 @@ public class SensedContentProvider extends ContentProvider {
                         TABLE_NAME,
                         projection,
                         "_id = ? ",
-                        selectionArgs,
+                        idSelectionArguments,
                         null,
                         null,
                         sortOrder);
@@ -110,7 +109,7 @@ public class SensedContentProvider extends ContentProvider {
                         TABLE_NAME,
                         projection,
                         SensedContract.SensedEntry.COLUMN_ENTRY_DATE_TIME + " = ? ",
-                        selectionArgs,
+                        dateSelectionArguments,
                         null,
                         null,
                         sortOrder);

@@ -152,35 +152,11 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
         return mCursor.getCount();
     }
 
-    /**
-     * Swaps the Cursor currently held in the adapter with a new one
-     * and triggers a UI refresh
-     *
-     * @param newCursor the new cursor that will replace the existing one
-     */
-    public Cursor swapCursor(Cursor newCursor) {
-        // check if this cursor is the same as the previous cursor (mCursor)
-        if (mCursor == newCursor) {
-            return null; // bc nothing has changed
-        }
-        Cursor temp = mCursor;
-        this.mCursor = newCursor; // new cursor value assigned
-
-        //check if this is a valid cursor, then update the cursor
-        if (newCursor != null) {
-            this.notifyDataSetChanged();
-        }
-        return temp;
-    }
-
     @Override
     public int getItemViewType(int position) {
         if (position == 0) return 1;
         else return 2;
     }
-
-
-
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access

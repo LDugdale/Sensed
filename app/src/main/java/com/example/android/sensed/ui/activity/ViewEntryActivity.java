@@ -16,6 +16,11 @@ import com.example.android.sensed.data.SensedContract;
 import java.text.ParseException;
 import java.util.Date;
 
+/**
+ * Activity for displaying the content of an entry from the recycler view.
+ *
+ * @author Laurie Dugdale
+ */
 public class ViewEntryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private TextView mDisplayDate;
@@ -28,7 +33,9 @@ public class ViewEntryActivity extends AppCompatActivity implements LoaderManage
      */
     public static final String[] ENTRY_DETAIL = {
             SensedContract.SensedEntry.COLUMN_ENTRY_DATE_TIME,
-            SensedContract.SensedEntry.COLUMN_ENTRY_HAPPINESS
+            SensedContract.SensedEntry.COLUMN_ENTRY_HAPPINESS,
+            SensedContract.SensedEntry.COLUMN_ENTRY_LONGITUDE,
+            SensedContract.SensedEntry.COLUMN_ENTRY_LATITUDE
     };
 
     /*
@@ -54,7 +61,6 @@ public class ViewEntryActivity extends AppCompatActivity implements LoaderManage
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
         mDisplayDate = (TextView) findViewById(R.id.ae_display_date);
@@ -73,7 +79,6 @@ public class ViewEntryActivity extends AppCompatActivity implements LoaderManage
         switch (id) {
 
             case ID_DETAIL_LOADER:
-
                 return new CursorLoader(this,
                         mUri,
                         ENTRY_DETAIL,

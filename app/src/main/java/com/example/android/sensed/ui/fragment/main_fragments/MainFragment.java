@@ -106,7 +106,6 @@ public class MainFragment extends BaseFragment  implements LoaderManager.LoaderC
         Intent entryDetailIntent = new Intent(getContext(), ViewEntryActivity.class);
         Uri uriForDateClicked = SensedContract.SensedEntry.buildEntryUriWithId(id);
         entryDetailIntent.setData(uriForDateClicked);
-
         startActivity(entryDetailIntent);
     }
 }
