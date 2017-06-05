@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * getter for sensedLocation
+     *
+     * @return
+     */
     public SensedLocation getSensedLocation() {
         return sensedLocation;
     }

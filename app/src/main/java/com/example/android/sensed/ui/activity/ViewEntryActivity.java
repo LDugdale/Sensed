@@ -23,46 +23,36 @@ import java.util.Date;
  */
 public class ViewEntryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    // UI elements
     private TextView mDisplayDate;
     private TextView mDisplayHappiness;
 
-
-    /*
-     * The columns of data that we are interested in displaying within our DetailActivity's
-     * weather display.
-     */
+    // the columns to return
     public static final String[] ENTRY_DETAIL = {
             SensedContract.SensedEntry.COLUMN_ENTRY_DATE_TIME,
             SensedContract.SensedEntry.COLUMN_ENTRY_HAPPINESS,
-            SensedContract.SensedEntry.COLUMN_ENTRY_LONGITUDE,
-            SensedContract.SensedEntry.COLUMN_ENTRY_LATITUDE
+            SensedContract.SensedEntry.COLUMN_ENTRY_LATITUDE,
+            SensedContract.SensedEntry.COLUMN_ENTRY_LONGITUDE
     };
 
-    /*
-     * We store the indices of the values in the array of Strings above to more quickly be able
-     * to access the data from our query. If the order of the Strings above changes, these
-     * indices must be adjusted to match the order of the Strings.
-     */
+    // easy references to the columns
     public static final int INDEX_ENTRY_DATE_TIME = 0;
     public static final int INDEX_ENTRY_HAPPINESS = 1;
+    public static final int INDEX_ENTRY_LATITUDE = 2;
+    public static final int INDEX_ENTRY_LONGITUDE = 3;
 
-
-    /*
-     * This ID will be used to identify the Loader responsible for loading the weather details
-     * for a particular day. In some cases, one Activity can deal with many Loaders. However, in
-     * our case, there is only one. We will still use this ID to initialize the loader and create
-     * the loader for best practice. Please note that 353 was chosen arbitrarily. You can use
-     * whatever number you like, so long as it is unique and consistent.
-     */
+    // arbitrary number to identify the loader responsible for fetching the event details must be unique
     private static final int ID_DETAIL_LOADER = 353;
 
-    /* The URI that is used to access the chosen day's weather details */
+    // URI used to access details
     private Uri mUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
+
+        // Bind UI elements to the class
         mDisplayDate = (TextView) findViewById(R.id.ae_display_date);
         mDisplayHappiness = (TextView) findViewById(R.id.ae_display_happiness);
 
@@ -78,6 +68,7 @@ public class ViewEntryActivity extends AppCompatActivity implements LoaderManage
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
 
+            // case for getting the entries by their id
             case ID_DETAIL_LOADER:
                 return new CursorLoader(this,
                         mUri,
@@ -85,7 +76,6 @@ public class ViewEntryActivity extends AppCompatActivity implements LoaderManage
                         null,
                         null,
                         null);
-
             default:
                 throw new RuntimeException("Loader Not Implemented: " + id);
         }
@@ -94,34 +84,24 @@ public class ViewEntryActivity extends AppCompatActivity implements LoaderManage
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        /*
-         * Before we bind the data to the UI that will display that data, we need to check the
-         * cursor to make sure we have the results that we are expecting. In order to do that, we
-         * check to make sure the cursor is not null and then we call moveToFirst on the cursor.
-         * Although it may not seem obvious at first, moveToFirst will return true if it contains
-         * a valid first row of data.
-         *
-         * If we have valid data, we want to continue on to bind that data to the UI. If we don't
-         * have any data to bind, we just return from this method.
-         */
+        // check if data is valid
         boolean cursorHasValidData = false;
         if (data != null && data.moveToFirst()) {
-            /* We have valid data, continue on to bind the data to the UI */
+            // cursor has valid data continue with the UI logic
             cursorHasValidData = true;
         }
 
+        // no data to display
         if (!cursorHasValidData) {
-            /* No data to display, simply return and do nothing */
             return;
         }
 
         /**************
          * Entry Date *
          **************/
-        /* Read weather condition ID from the cursor (ID provided by Open Weather Map) */
+        // read in the entry date
         String entryDate = data.getString(INDEX_ENTRY_DATE_TIME);
-
-        /* Set the resource ID on the icon to display the art */
+        // set the date TextView
         mDisplayDate.setText(parseDate(entryDate));
 
 
@@ -153,6 +133,6 @@ public class ViewEntryActivity extends AppCompatActivity implements LoaderManage
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        // not used
     }
 }

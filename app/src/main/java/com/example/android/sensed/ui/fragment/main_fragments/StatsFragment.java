@@ -133,7 +133,7 @@ public class StatsFragment extends BaseFragment implements LoaderManager.LoaderC
             case OVERVIEW_GRAPH:
                 // URI for all rows of entry data
                 Uri entryQueryUri = SensedContract.SensedEntry.CONTENT_URI;
-                String selection = SensedContract.SensedEntry.getSqlSelectbetweenDates(startDay(), endDay());
+                String selection = SensedContract.SensedEntry.getSqlSelectBetweenDates(startDay(), endDay());
 
                 return new CursorLoader(
                         getActivity(),

@@ -34,6 +34,7 @@ public class CreateEntyActivity extends AppCompatActivity implements ViewPager.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_enty);
 
+        //find view pager and Adapter for managing fragments
         viewPager = (ViewPager) findViewById(R.id.ace_view_pager);
         CreateEntryAdapter adapter = new CreateEntryAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
@@ -51,8 +52,31 @@ public class CreateEntyActivity extends AppCompatActivity implements ViewPager.O
 
     }
 
+    /**
+     * getter for sensedLocation
+     *
+     * @return
+     */
     public SensedLocation getSensedLocation() {
         return sensedLocation;
+    }
+
+    /**
+     * setter for mManualEntry
+     *
+     * @return
+     */
+    public void setmManualEntry(ManualEntry mManualEntry){
+        this.mManualEntry = mManualEntry;
+    }
+
+    /**
+     * getter for mManualEntry
+     *
+     * @return
+     */
+    public ManualEntry getmManualEntry(){
+        return this.mManualEntry;
     }
 
 //    @Override
@@ -61,24 +85,22 @@ public class CreateEntyActivity extends AppCompatActivity implements ViewPager.O
 //        unbindService(locationServiceConnection);
 //    }
 
+    /**
+     * Method to move to fragment one
+     */
     public void switchToFragmentOne(){
         if(viewPager.getCurrentItem() != 1){
             viewPager.setCurrentItem(1);
         }
     }
 
+    /**
+     * Method to move to fragment two
+     */
     public void switchToFragmentZero(){
         if(viewPager.getCurrentItem() != 0){
             viewPager.setCurrentItem(0);
         }
-    }
-
-    public void setmManualEntry(ManualEntry mManualEntry){
-        this.mManualEntry = mManualEntry;
-    }
-
-    public ManualEntry getmManualEntry(){
-        return this.mManualEntry;
     }
 
     @Override

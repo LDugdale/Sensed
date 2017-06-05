@@ -9,7 +9,8 @@ import com.example.android.sensed.ui.fragment.main_fragments.MainFragment;
 import com.example.android.sensed.ui.fragment.main_fragments.StatsFragment;
 
 /**
- * Created by mnt_x on 28/05/2017.
+ * Adapter for managing the Main Activity fragments
+ * @author Laurie Dugdale
  */
 
 public class MainPagerAdapter extends FragmentPagerAdapter {

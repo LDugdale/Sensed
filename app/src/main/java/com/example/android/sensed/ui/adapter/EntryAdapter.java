@@ -29,15 +29,12 @@ import java.util.Locale;
 public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> {
 
 
-    // Store the context for easy access
+    // Store the context and cursor for easy access
     private Context mContext;
     private Cursor mCursor;
-    /*
-      * Below, we've defined an interface to handle clicks on items within this Adapter. In the
-      * constructor of our ForecastAdapter, we receive an instance of a class that has implemented
-      * said interface. We store that instance in this variable to call the onClick method whenever
-      * an item is clicked in the list.
-      */
+
+    // This interface handles clicks on items within this Adapter. This is populated from the constructor
+    // Call the instance in this variable to call the onClick method whenever and item is clicked in the list.
     final private EntryAdapterOnClickHandler mClickHandler;
 
     /**
@@ -47,18 +44,23 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
         void onClick(long date);
     }
 
-
-
-    // Pass in the contact array into the constructor
+    /**
+     * Entry adapter constructor
+     *
+     * @param mContext
+     * @param mCursor
+     * @param clickHandler
+     */
     public EntryAdapter(Context mContext, Cursor mCursor, EntryAdapterOnClickHandler clickHandler) {
         this.mContext = mContext;
         this.mClickHandler = clickHandler;
         this.mCursor = mCursor;
     }
 
-
-    // Usually involves inflating a layout from XML and returning the holder
     @Override
+    /**
+     * Inflates a layout depending on its position and returns a ViewHolder
+     */
     public EntryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View contactView = null;
@@ -78,30 +80,33 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
         return new ViewHolder(contactView);
     }
 
-    // Involves populating data into the item through holder
     @Override
+    /**
+     * Populates data into the layout through the viewholder
+     */
     public void onBindViewHolder(EntryAdapter.ViewHolder viewHolder, int position) {
 
         // Move the mCursor to the position of the item to be displayed
         if (!mCursor.moveToPosition(position)) {
-            return; // bail if returned null
+            return;
         }
 
-        // Update the view holder with the information needed to display
+        // get values from the cursor to update the view holder
         String date = mCursor.getString(mCursor.getColumnIndex(SensedContract.SensedEntry.COLUMN_ENTRY_DATE_TIME));
         int happiness = mCursor.getInt(mCursor.getColumnIndex(SensedContract.SensedEntry.COLUMN_ENTRY_HAPPINESS));
         long id = mCursor.getLong(mCursor.getColumnIndex(SensedContract.SensedEntry._ID));
 
+        // set the values from the cursor to the UI elements
         viewHolder.mEntryHappiness.setText(String.valueOf(happiness));
-
-
         viewHolder.mEntryDate.setText(parseDate(date));
 
 
+        // if not null set the colour of the EntryPoint UI element depending on the happiness level
         if (viewHolder.mEntryPoint != null) {
             viewHolder.mEntryPoint.getDrawable().setColorFilter(createColor(happiness), PorterDuff.Mode.SRC_IN);
         }
 
+        // if not null set the colour of the EntryPoint UI element depending on the happiness level
         if( viewHolder.mEntryPointOne != null ) {
             viewHolder.mEntryPointOne.getDrawable().setColorFilter(createColor(happiness), PorterDuff.Mode.SRC_IN);
 
@@ -109,6 +114,12 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
 
     }
 
+    /**
+     * converts the date from the database to a more readable format
+     *
+     * @param dateString
+     * @return
+     */
     public String parseDate(String dateString){
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -125,7 +136,11 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
         return newDateString;
     }
 
-
+    /**
+     * Gets the corresponding colour according to the value of the happiness level
+     * @param happiness
+     * @return
+     */
     public int createColor(int happiness){
 
         int mGoodColor = ContextCompat.getColor(mContext, R.color.green);
@@ -143,8 +158,10 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
 
     }
 
-    // Returns the total count of items in the list
     @Override
+    /**
+     * return the total count of items in the list
+     */
     public int getItemCount() {
         if (mCursor == null) {
             return 0;
@@ -158,37 +175,40 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
         else return 2;
     }
 
-    // Provide a direct reference to each of the views within a data item
-    // Used to cache the views within the item layout for fast access
+    /**
+     * CLASS
+     * Used to cache the views within the layout for quick access
+     */
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        // Your holder should contain a member variable
-        // for any view that will be set as you render a row
+
+        // The UI elements
         public ImageView mEntryPoint;
         public ImageView mEntryPointOne;
         public TextView mEntryDate;
         public TextView mEntryHappiness;
 
-        // We also create a constructor that accepts the entire item row
-        // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
-
-            // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
             super(itemView);
+
+            // Find the UI elements
             mEntryPoint = (ImageView) itemView.findViewById(R.id.iv_entry_point);
             mEntryPointOne = (ImageView) itemView.findViewById(R.id.iv_entry_point_one);
             mEntryDate = (TextView) itemView.findViewById(R.id.ie_date);
             mEntryHappiness = (TextView) itemView.findViewById(R.id.ie_hp_value);
 
+            // set the listener as this class
             itemView.setOnClickListener(this);
         }
 
-
         @Override
         public void onClick(View v) {
+            // get the position of the current item
             int adapterPosition = getAdapterPosition();
+            // move cursor to that position
             mCursor.moveToPosition(adapterPosition);
+            // get the ID from the cursor
             long id = mCursor.getLong(mCursor.getColumnIndex("_id"));
+            // call the onClick method for the mClickHandler variable
             mClickHandler.onClick(id);
         }
     }

@@ -4,7 +4,8 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
- * Created by mnt_x on 30/05/2017.
+ * Essential Strings and URI constants for the database also utility methods
+ * @author Laurie Dugdale
  */
 
 public class SensedContract {
@@ -19,6 +20,10 @@ public class SensedContract {
     // The path for the "entry" directory
     public static final String PATH_ENTRIES = "entry";
 
+    /**
+     * CLASS
+     * inner class for handling the Entry table constants and methods.
+     */
     public static final class SensedEntry implements BaseColumns {
 
         // TaskEntry content URI = base content URI + path
@@ -26,6 +31,8 @@ public class SensedContract {
 
         // Table name
         public static final String TABLE_NAME = "entry";
+
+        // Column names
         public static final String COLUMN_ENTRY_DATE_TIME = "date";
         public static final String COLUMN_ENTRY_HAPPINESS= "happiness";
         public static final String COLUMN_ENTRY_LONGITUDE = "longitude";
@@ -52,9 +59,7 @@ public class SensedContract {
         }
 
 
-        public static String getSqlSelectbetweenDates(String fromDate, String toDate) {
-//            return "date >= Datetime('" + fromDate + "') and date <= Datetime('" + toDate + "')";
-//            return "happiness > 0";
+        public static String getSqlSelectBetweenDates(String fromDate, String toDate) {
             return "date BETWEEN '" + fromDate + "' AND '" + toDate + "'";
 
         }
